@@ -17,11 +17,8 @@
     <th>Price</th>
     </tr>
   </thead>
-  <% @order_total = 0 %>
-  <% LineItem.all.each do |item| %>
-    <% if item.order_id == @order.id%>
-    <%= render 'item', product_id: item.product_id, quantity: item.quantity %>
-    <%end%>
+  <% @line_items.each do |item| %>
+    <%= render 'item', item: item %>
   <%end%>
   <tfoot>
     <tr>
@@ -29,7 +26,7 @@
     TOTAL:
     </th>
     <th>
-      <%= @order_total %>
+      <%= @order.total %>
     </th>
     </tr>
   </tfoot>
