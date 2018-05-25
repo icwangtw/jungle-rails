@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
     if order.valid?
       empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
-      UserMailer.receipt_email(@order.id)
+      UserMailer.receipt_email(order)
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
     end
