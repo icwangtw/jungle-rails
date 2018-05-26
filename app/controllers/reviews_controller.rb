@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
 
-  before_filter :create
+  before_action :require_user
 
   def create
     @review = Review.new(review_params)
@@ -17,4 +17,9 @@ class ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:description, :rating)
   end
+
+  def require_user
+    current_user
+  end
+
 end

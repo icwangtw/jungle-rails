@@ -35,7 +35,7 @@
             <tr>
               <td><%= r.rating %></td>
               <td><%= r.description %></td>
-              <% if current_user.id == r.user_id %>
+              <% if current_user && current_user.id == r.user_id %>
               <td>DELETE</td>
               <% end %>
             </tr>
@@ -44,7 +44,6 @@
           </table></dd>
         <% if current_user %>
         <%= form_for [@product, @review] do |form| %>
-
         <% if form.object.errors.any? %>
           <div class="alert alert-danger">
             <strong>The following errors prevented saving:</strong>
