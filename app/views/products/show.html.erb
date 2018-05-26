@@ -23,7 +23,6 @@
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
           <dt>Reviews</dt>
-
           <dd><table>
             <thead>
               <tr>
@@ -32,14 +31,46 @@
               </tr>
             </thead>
             <tbody>
-          <% @review.each do |r| %>
+          <% @reviews.reverse_each do |r| %>
             <tr>
               <td><%= r.rating %></td>
               <td><%= r.description %></td>
+              <% if current_user.id == r.user_id %>
+              <td>DELETE</td>
+              <% end %>
             </tr>
           <% end %>
             </tbody>
           </table></dd>
+        <% if current_user %>
+        <%= form_for [@product, @review] do |form| %>
+
+        <% if form.object.errors.any? %>
+          <div class="alert alert-danger">
+            <strong>The following errors prevented saving:</strong>
+            <ul>
+              <% form.object.errors.full_messages.each do |error| %>
+                <li><%= error %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= form.label :description %>
+          <%= form.text_field :description, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :rating %>
+          <%= form.select(:rating, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]))%>
+        </div>
+
+        <%= form.submit 'Submit Review', class: 'btn btn-primary' %>
+
+        <% end %>
+        <% end %>
+
       </div>
     </div>
 
