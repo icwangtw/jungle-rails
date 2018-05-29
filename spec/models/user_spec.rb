@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
         password_confirmation: "12345678"
       })
       expect(user3).to_not be_valid
-      expect(user3.errors.full_messages).to eq(["Name can't be blank"])
+      expect(user3.errors.full_messages).to eq(["First name can't be blank"])
     end
     it "needs to have Last Name" do
       user4 = User.create({
@@ -46,7 +46,7 @@ RSpec.describe User, type: :model do
         password_confirmation: "12345678"
       })
       expect(user4).to_not be_valid
-      expect(user3.errors.full_messages).to eq(["Name can't be blank"])
+      expect(user4.errors.full_messages).to eq(["Last name can't be blank"])
     end
     it "needs to have email" do
       user5 = User.create({
@@ -56,6 +56,7 @@ RSpec.describe User, type: :model do
         password_confirmation: "12345678"
       })
       expect(user5).to_not be_valid
+      expect(user5.errors.full_messages).to eq(["Email can't be blank"])
     end
     it "needs to have a long enough password" do
       user6 = User.create({
@@ -66,6 +67,7 @@ RSpec.describe User, type: :model do
         password_confirmation: "1234"
       })
       expect(user6).to_not be_valid
+      expect(user6.errors.full_messages).to eq(["Password is too short (minimum is 6 characters)"])
     end
     it "needs to have a password and confirmation" do
       user7 = User.create({
@@ -75,6 +77,7 @@ RSpec.describe User, type: :model do
         password: "12345678"
       })
       expect(user7).to_not be_valid
+      expect(user7.errors.full_messages).to eq(["Password confirmation can't be blank"])
     end
   end
 
